@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+			xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragment/fragment :: head}">
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<div th:replace="~{fragment/fragment :: nav}"></div>
+<div class="container w-50 d-flex flex-column gap-5 border border-dark-subtle rounded-1 mt-4 p-4" style="min-width:360px">
+	<div class="justify-content-center d-flex">
+		<button class="btn btn-outline-success w-100" onclick="location.href='/ledger/new'">추가</button>
+	</div>
+	<div class="accordion" id="accordionPanelsStayOpenExample">
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+					내 가계부
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+				<div class="accordion-body">
+					<ul class="list-group">
+						<li class="list-group-item" th:each="ml : ${myLedgers}" th:onclick="|ledgerDetail(${ml.id})|">
+							<div class="row">
+								<div class="col" th:text="${ml.name}">개똥이네 중요 가계부</div>
+								<div class="text-end col-3" th:text="${ml.updateAt}">알림</div>
+							</div>
+							<div class="row">
+								<div class="col" th:text="${ml.income - ml.expenses}">10000000</div>
+								<div class="text-end col-3" th:text="${ml.createAt}">0000-00-00</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+					참가중 가계부
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+				<div class="accordion-body">
+					<ul class="list-group">
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col">개똥이네 중요 가계부</div>
+								<div class="col-2">알림</div>
+							</div>
+							<div class="row">
+								<div class="col">10000000</div>
+								<div class="col-2">0000-00-00</div>
+							</div>
+
+						</li>
+						<li class="list-group-item">2</li>
+						<li class="list-group-item">3</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" th:src="@{/js/ledger.js}"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:insert="~{fragment/fragment :: head}">
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<div class="container">
+	<div class="text-center mx-auto" style="padding:80px 0">
+		<h1>JANGBOGI</h1>
+	</div>
+</div>
+<div class="container">
+	<form th:action="@{/member/signup}" method="post" enctype="multipart/form-data" onsubmit="return signupCheck()">
+	<div class="card text-center mx-auto p-5" style="width:400px">
+		<div class="list-group">
+			<input class="list-group-item p-3" id="username" maxlength="12" name="username" placeholder="ID">
+			<input class="list-group-item p-3" id="pw" maxlength="16" name="password" placeholder="Password" type="password">
+			<input class="list-group-item p-3" id="name" maxlength="16" name="name" placeholder="Name">
+			<input class="list-group-item p-3" id="img" maxlength="16" name="img" placeholder="Img" type="file">
+		</div>
+		<button class="btn btn-primary pt-3 pb-3 mt-4 mb-4" type="submit">회원가입</button>
+	</div>
+	</form>
+</div>
+<script type="text/javascript" th:src="@{/js/signup.js}"></script>
+</body>
+</html>

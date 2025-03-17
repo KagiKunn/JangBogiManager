@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+			xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragment/fragment :: head}">
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<div th:replace="~{fragment/fragment :: nav}"></div>
+<div class="text-center mx-auto" style="padding:80px 0">
+	<h1>JANGBOGI</h1>
+</div>
+<form th:action="@{/ledger/registry}" method="post">
+<div class="container w-50 d-flex flex-column gap-5 border border-dark-subtle rounded-1 mt-4 p-4"
+		 style="min-width:360px">
+	<div class="list-group p-5">
+			<input id="name" name="ledgerName" class="list-group-item" placeholder="가계부 이름을 입력해주세요." maxlength="16"/>
+	</div>
+	<div class="justify-content-center d-flex">
+		<button class="btn btn-outline-success w-25" type="submit" onclick="location.href='/ledger/new'">추가</button>
+	</div>
+	<div class="justify-content-center d-flex">
+		<a class="text-decoration-none text-secondary" th:href="@{/ledger/home}">뒤로</a>
+	</div>
+</div>
+</form>
+</body>
+</html>

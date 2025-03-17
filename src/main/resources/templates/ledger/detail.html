@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+			xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragment/fragment :: head}">
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<div th:replace="~{fragment/fragment :: nav}"></div>
+<div class="container w-50 d-flex flex-column gap-5 bg-body-tertiary rounded-1 mt-4 p-4" style="min-width:360px">
+	<div class="justify-content-center d-flex" style="height: 80px">
+		<button class="btn btn-outline-info text-black border-black col position-relative" onclick="location.href='/ledger/new'">목표금액-지출금액<span class="position-absolute bottom-0 end-0">통계보기</span></button>
+		<button class="btn btn-outline-success col-2" onclick="location.href='/ledger/new'">초대</button>
+	</div>
+	<div class="btn-group" style="aspect-ratio: 1 / 0.5; max-height: 260px">
+		<button class="btn btn-outline-success border-black">수입</button>
+		<button class="btn btn-outline-danger border-black">지출</button>
+	</div>
+	<div class="accordion" id="accordionPanelsStayOpenExample">
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+					<strong>오늘 해야할 내역</strong>
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+				<div class="accordion-body">
+					<ul class="list-group">
+						<li class="list-group-item" >
+							<div class="row border-bottom border-secondary-subtle pb-2">
+								<div class="col">내용명 : 카레 4인분</div>
+								<div class="col-3">카테고리 : </div>
+								<button class="btn btn-success col-2">구매 완료</button>
+							</div>
+							<div class="row pt-2">
+								<div class="col" >금액 : </div>
+								<div class="text-end col" >생성일 : 00.00.00 00:00</div>
+							</div>
+						</li>
+					</ul>
+						<li class="list-group mt-1"><a class="btn btn-outline-primary w-100" th:href="|@{/ledger/newitem/{no}(no=${no})}|">추가</a></li>
+				</div>
+			</div>
+		</div>
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+					<strong>오늘 완료한 내역</strong>
+				</button>
+			</h2>
+			<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+				<div class="accordion-body">
+					<ul class="list-group">
+						<li class="list-group-item">
+							<div class="row">
+								<div class="col">양파 3개</div>
+								<div class="col-2">카테고리</div>
+								<div class="col-2">알림</div>
+							</div>
+							<div class="row">
+								<div class="col">10000000</div>
+								<div class="col-2">0000-00-00</div>
+							</div>
+
+						</li>
+						<li class="list-group-item">2</li>
+						<li class="list-group-item">3</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="d-flex justify-content-around">
+		<button class="btn btn-danger"><strong>삭제</strong></button>
+		<button class="btn btn-warning"><strong>수정</strong></button>
+	</div>
+</div>
+<script type="text/javascript" th:src="@{/js/ledger.js}"></script>
+</body>
+</html>
