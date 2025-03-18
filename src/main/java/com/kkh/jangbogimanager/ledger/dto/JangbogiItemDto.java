@@ -2,8 +2,6 @@ package com.kkh.jangbogimanager.ledger.dto;
 
 import com.kkh.jangbogimanager.ledger.Ledger;
 import com.kkh.jangbogimanager.member.entity.Member;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
