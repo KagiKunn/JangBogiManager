@@ -11,3 +11,11 @@ function logout(){
     document.body.appendChild(f);
     f.submit();
 }
+function csrfToken(f) {
+    const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+    const csrfTokenInput = document.createElement("input");
+    csrfTokenInput.type = "hidden";
+    csrfTokenInput.name = "_csrf";
+    csrfTokenInput.value = csrfToken;
+    f.appendChild(csrfTokenInput);
+}

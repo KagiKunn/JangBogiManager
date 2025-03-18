@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{fragment/fragment :: head}">
+	<meta charset="UTF-8">
+	<title>Title</title>
+
+</head>
+<body>
+<div th:replace="~{fragment/fragment :: nav}"></div>
+<div class="container w-50" style="min-width:400px">
+	<div id='calendar'></div>
+	<div class="container">
+		<button class="col">뒤로</button>
+		<button class="col"></button>
+	</div>
+</div>
+<input type="hidden" id="ledgerId" th:value="${no}"/>
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+	<script type="text/javascript" th:src="@{/js/statsCalender.js}"></script>
+</body>
+</html>

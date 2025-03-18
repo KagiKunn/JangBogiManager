@@ -13,15 +13,15 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @Builder
 @Data
-public class JangbogiItemDto {
+public class JangbogiItemResponseDto {
 	private Long id;
 	private String name;
 	private int price;
 	private String memo;
-	private int category;
-	private Timestamp createAt;
-	private Timestamp completeAt;
-	private Member createMember;
-	private Member completeMember;
-	private Ledger ledger;
+	private String category;
+	private String createAt;
+	private String completeAt;
+	private String createMember;
+	private String completeMember;
+	private Long ledger;
 }

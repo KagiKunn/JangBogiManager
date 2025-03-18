@@ -1,6 +1,8 @@
 package com.kkh.jangbogimanager.ledger.controller;
 
+import com.kkh.jangbogimanager.ledger.JangbogiItem;
 import com.kkh.jangbogimanager.ledger.LedgerItem;
+import com.kkh.jangbogimanager.ledger.dto.JangbogiItemDto;
 import com.kkh.jangbogimanager.ledger.service.LedgerService;
 import com.kkh.jangbogimanager.member.Service.MemberService;
 import com.kkh.jangbogimanager.member.repository.MemberRepository;
@@ -33,11 +35,12 @@ public class LedgerController {
 	@PostMapping("/registry")
 	public String ledgerRegistry(@RequestParam String ledgerName) {
 		ledgerService.ledgerRegister(ledgerName);
-		return "redirect:/ledger/home";
+		return "/ledger/detail";
 	}
 
 	@GetMapping("/detail/{no}")
 	public String ledgerDetail(@PathVariable String no, Model model) {
+		ledgerService.jangbogiItemDistributor(ledgerService.getJangbogiItems(no),model);
 		model.addAttribute("no", no);
 		return "/ledger/detail";
 	}
@@ -47,8 +50,33 @@ public class LedgerController {
 		return "/ledger/newitem";
 	}
 	@PostMapping("/newitem")
-	public String registLedgerItem(@ModelAttribute LedgerItem ledgerItem, Model model) {
+	public String registLedgerItem(@ModelAttribute JangbogiItemDto jDto, @RequestParam String lno, Model model) {
+		ledgerService.jangbogiItemRegister(jDto, lno);
 		return "redirect:/ledger/home";
 	}
 
+	@PostMapping("/jangbogiComplete/{id}")
+	public String jangbogiComplete(@PathVariable String id, @ModelAttribute JangbogiItemDto jDto, Model model) {
+		System.out.println(jDto);
+		System.out.println(id);
+		ledgerService.jangbogiItemCompleter(jDto,id);
+		return "/ledger/detail";
+	}
+
+	@GetMapping("/editdetail/{no}")
+	public String editDetail(@PathVariable String no, Model model) {
+		ledgerService.jangbogiItemDistributor(ledgerService.getJangbogiItems(no),model);
+		model.addAttribute("no", no);
+		return "/ledger/editdetail";
+	}
+	@PostMapping("/editdetail/{no}")
+	public String detailEditor(@PathVariable String no, @ModelAttribute JangbogiItemDto jDto) {
+		ledgerService.detailEditor(jDto);
+		return "redirect:/ledger/detail/"+no;
+	}
+	@PostMapping("/deletedetail")
+	public String detailDeleter(@RequestParam String id, @RequestParam String no) {
+		ledgerService.detailDeleter(id);
+		return "redirect:/ledger/detail/"+no;
+	}
 }

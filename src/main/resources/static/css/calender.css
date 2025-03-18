@@ -1,0 +1,8 @@
+.fc-event-time {
+    display: none; !important;
+}
+
+/* 월간 뷰에서 도트 제거 */
+.fc-daygrid-event-dot {
+    display: none; !important;
+}

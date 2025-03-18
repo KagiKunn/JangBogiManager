@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 @Getter
 @Entity
 public class JangbogiItem {
@@ -21,6 +21,7 @@ public class JangbogiItem {
 	private String name;
 	private int price;
 	private String memo;
+	private int category;
 	private Timestamp createAt;
 	private Timestamp completeAt;
 
