@@ -67,10 +67,12 @@ public class StatsServiceImpl implements StatsService {
 	}
 
 	@Override
-	public List<JangbogiItemResponseDto> getDateExpenses(String ledgerId, LocalDate date) {
+	public List<JangbogiItemResponseDto> getDateExpenses(String ledgerId, String date) {
+		LocalDate day = LocalDate.parse(date);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd HH:mm");
 		return ledgerService.getJangbogiItems(ledgerId).stream()
-				.filter(j -> LocalDateTime.parse(j.getCompleteAt(), formatter).toLocalDate().isEqual(date)).toList();
+				.filter(j -> j.getCompleteAt() != null && !j.getCompleteAt().equals("N/A"))
+				.filter(j -> LocalDateTime.parse(j.getCompleteAt(), formatter).toLocalDate().isEqual(day)).toList();
 	}
 
 }

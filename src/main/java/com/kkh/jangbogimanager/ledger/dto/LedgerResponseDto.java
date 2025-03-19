@@ -19,8 +19,8 @@ public class LedgerResponseDto {
 	private Long id;
 	private String name;
 	private String invitation;
-	private int income;
-	private int expenses;
+	private Long income;
+	private Long expenses;
 	private String createAt;
 	private String updateAt;
 	private Member member;

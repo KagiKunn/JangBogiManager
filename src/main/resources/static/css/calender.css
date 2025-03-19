@@ -6,3 +6,10 @@
 .fc-daygrid-event-dot {
     display: none; !important;
 }
+#calendar a{
+    text-decoration: none;
+    color: black !important;
+}
+.fc-event-title{
+    color: red;
+}

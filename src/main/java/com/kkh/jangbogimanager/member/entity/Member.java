@@ -1,7 +1,7 @@
 package com.kkh.jangbogimanager.member.entity;
 
+import com.kkh.jangbogimanager.ledger.IncomeItem;
 import com.kkh.jangbogimanager.ledger.Ledger;
-import com.kkh.jangbogimanager.ledger.LedgerItem;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,5 +33,5 @@ public class Member {
 	private List<Ledger> ledgers = new ArrayList<>();
 
 	@OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<LedgerItem> ledgerItem = new ArrayList<>();
+	private List<IncomeItem> incomeItem = new ArrayList<>();
 }

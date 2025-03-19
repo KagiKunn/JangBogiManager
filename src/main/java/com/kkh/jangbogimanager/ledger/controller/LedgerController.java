@@ -1,15 +1,14 @@
 package com.kkh.jangbogimanager.ledger.controller;
 
-import com.kkh.jangbogimanager.ledger.JangbogiItem;
-import com.kkh.jangbogimanager.ledger.LedgerItem;
 import com.kkh.jangbogimanager.ledger.dto.JangbogiItemDto;
 import com.kkh.jangbogimanager.ledger.service.LedgerService;
 import com.kkh.jangbogimanager.member.Service.MemberService;
-import com.kkh.jangbogimanager.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/ledger")
@@ -41,6 +40,8 @@ public class LedgerController {
 	@GetMapping("/detail/{no}")
 	public String ledgerDetail(@PathVariable String no, Model model) {
 		ledgerService.jangbogiItemDistributor(ledgerService.getJangbogiItems(no),model);
+		ledgerService.calculateLedger(no);
+		model.addAttribute("ledger",ledgerService.getLedger(no));
 		model.addAttribute("no", no);
 		return "/ledger/detail";
 	}
@@ -75,8 +76,13 @@ public class LedgerController {
 		return "redirect:/ledger/detail/"+no;
 	}
 	@PostMapping("/deletedetail")
-	public String detailDeleter(@RequestParam String id, @RequestParam String no) {
-		ledgerService.detailDeleter(id);
-		return "redirect:/ledger/detail/"+no;
+	public String detailDeleter(@RequestBody Map<String, String> req) {
+		ledgerService.detailDeleter(req.get("id"));
+		return "redirect:/ledger/detail/"+req.get("no");
+	}
+
+	@PostMapping("/income")
+	public String incomeRegister(@RequestBody Map<String, Long> req){
+		return "/ledger/detail"+req.get("no");
 	}
 }

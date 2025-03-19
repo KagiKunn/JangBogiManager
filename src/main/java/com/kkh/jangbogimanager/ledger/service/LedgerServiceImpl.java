@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -43,7 +44,7 @@ public class LedgerServiceImpl implements LedgerService {
 				.name(ledgerName)
 				.invitation(commonService.generateInviteCode())
 				.income(0)
-				.expenses(0)
+				.expenses(0L)
 				.createAt(Timestamp.valueOf(LocalDateTime.now()))
 				.updateAt(Timestamp.valueOf(LocalDateTime.now()))
 				.member(member)
@@ -60,7 +61,7 @@ public class LedgerServiceImpl implements LedgerService {
 				.name(f.getName())
 				.invitation(f.getInvitation())
 				.expenses(f.getExpenses())
-				.income(f.getIncome())
+				.income((long) f.getIncome())
 				.createAt(f.getCreateAt().toLocalDateTime().format(formatter))
 				.updateAt(f.getUpdateAt().toLocalDateTime().format(formatter))
 				.member(f.getMember())
@@ -125,8 +126,10 @@ public class LedgerServiceImpl implements LedgerService {
 	}
 	@Override
 	public void jangbogiItemDistributor(List<JangbogiItemResponseDto> jDtos, Model model){
-		List<JangbogiItemResponseDto> preparations = jDtos.stream().filter(jdto -> jdto.getCompleteMember().equals("N/A")).toList();
-		List<JangbogiItemResponseDto> complete = jDtos.stream().filter(jdto -> !jdto.getCompleteMember().equals("N/A")).toList();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy.MM.dd HH:mm");
+		List<JangbogiItemResponseDto> filteredDtos = jDtos.stream().filter(j -> LocalDateTime.parse(j.getCreateAt(),formatter).toLocalDate().isEqual(LocalDate.now())).toList();
+		List<JangbogiItemResponseDto> preparations = filteredDtos.stream().filter(filteredDto -> filteredDto.getCompleteMember().equals("N/A")).toList();
+		List<JangbogiItemResponseDto> complete = filteredDtos.stream().filter(filteredDto -> !filteredDto.getCompleteMember().equals("N/A")).toList();
 		System.out.println(preparations);
 		System.out.println(complete);
 		model.addAttribute("preparations", preparations);
@@ -151,6 +154,30 @@ public class LedgerServiceImpl implements LedgerService {
 	public void detailDeleter(String id) {
 		JangbogiItem j = jangbogiRepository.findById(Long.parseLong(id)).orElse(null);
 		jangbogiRepository.delete(Objects.requireNonNull(j));
+	}
+
+	@Override
+	public LedgerResponseDto getLedger(String no) {
+		Ledger l = ledgerRepository.findById(Long.parseLong(no)).orElseThrow(() -> new IllegalArgumentException("해당 아이템이 존재하지 않습니다."));
+		return LedgerResponseDto.builder()
+				.id(l.getId())
+				.name(l.getName())
+				.income((long) l.getIncome())
+				.expenses(l.getExpenses())
+				.createAt(l.getCreateAt().toLocalDateTime().toLocalDate().toString().replace("-","."))
+				.updateAt(l.getUpdateAt().toLocalDateTime().toLocalDate().toString().replace("-","."))
+				.build();
+	}
+
+	@Transactional
+	@Override
+	public void calculateLedger(String no) {
+		List<JangbogiItemResponseDto> items = getJangbogiItems(no);
+		Long tot = items.stream().mapToLong(JangbogiItemResponseDto::getPrice).sum();
+		Ledger ledger = ledgerRepository.findById(Long.parseLong(no)).orElseThrow(()->new RuntimeException("없습니다.")).toBuilder()
+				.expenses(tot)
+				.build();
+		ledgerRepository.save(ledger);
 	}
 
 	public String categoryDistributor(int no) {

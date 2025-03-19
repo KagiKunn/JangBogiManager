@@ -14,7 +14,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 @Getter
 @Entity
 public class Ledger {
@@ -24,7 +24,7 @@ public class Ledger {
 	private String name;
 	private String invitation;
 	private int income;
-	private int expenses;
+	private Long expenses;
 	private Timestamp createAt;
 	private Timestamp updateAt;
 
@@ -33,7 +33,7 @@ public class Ledger {
 	private Member member;
 
 	@OneToMany(mappedBy = "ledger", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<LedgerItem> ledgerItem = new ArrayList<>();
+	private List<IncomeItem> IncomeItem = new ArrayList<>();
 
 	@PrePersist
 	public void prePersist() {

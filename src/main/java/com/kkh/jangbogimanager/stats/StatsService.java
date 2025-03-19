@@ -8,5 +8,5 @@ import java.util.List;
 public interface StatsService {
 	List<CalenderDto> getLedgerStats(String ledgerId);
 
-	List<JangbogiItemResponseDto> getDateExpenses(String ledgerId, LocalDate date);
+	List<JangbogiItemResponseDto> getDateExpenses(String ledgerId, String date);
 }

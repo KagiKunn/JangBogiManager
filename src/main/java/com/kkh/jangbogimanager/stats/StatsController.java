@@ -23,9 +23,5 @@ public class StatsController {
 		model.addAttribute("no", no);
 		return "/stats/ledger";
 	}
-	@GetMapping("/detail")
-	public String detail(@RequestParam LocalDate date, @RequestParam String ledgerId, Model model) {
-		statsService.getDateExpenses(ledgerId, date);
-		return "/stats/detail";
-	}
+
 }

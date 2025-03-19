@@ -54,5 +54,44 @@
 	</div>
 <script type="text/javascript" th:src="@{/js/nav.js}"></script>
 </nav>
+
+<div class="modal" id="income-modal" th:fragment="incomeModal">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form th:action="@{/ledger/income}" method="post">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" >목표금액</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<input th:value="${ledger.income}" name="income">
+				<input type="hidden" th:value="${ledger.id}" name="no">
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">수정</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="expense-modal" th:fragment="expenseModal">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form th:action="@{/ledger/expense}" method="post">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5">목표금액</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<input th:value="${ledger.income}" name="income">
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">수정</button>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
 </body>
 </html>

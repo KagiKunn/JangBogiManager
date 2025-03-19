@@ -26,4 +26,8 @@ public interface LedgerService {
 	void detailEditor(JangbogiItemDto jDto);
 
 	void detailDeleter(String id);
+
+	LedgerResponseDto getLedger(String no);
+
+	void calculateLedger(String no);
 }

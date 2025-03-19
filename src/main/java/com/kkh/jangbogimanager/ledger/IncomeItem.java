@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 @Getter
 @Builder
 @Entity
-public class LedgerItem {
+public class IncomeItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
