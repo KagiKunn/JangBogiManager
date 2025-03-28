@@ -23,7 +23,7 @@ public class Ledger {
 	private Long id;
 	private String name;
 	private String invitation;
-	private int income;
+	private Long income;
 	private Long expenses;
 	private Timestamp createAt;
 	private Timestamp updateAt;

@@ -30,4 +30,8 @@ public interface LedgerService {
 	LedgerResponseDto getLedger(String no);
 
 	void calculateLedger(String no);
+
+	void setIncome(Long no, Long income);
+
+	void ledgerDeleter(Long no);
 }

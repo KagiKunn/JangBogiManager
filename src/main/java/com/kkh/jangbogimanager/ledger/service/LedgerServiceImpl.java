@@ -43,7 +43,7 @@ public class LedgerServiceImpl implements LedgerService {
 		Ledger ledger = Ledger.builder()
 				.name(ledgerName)
 				.invitation(commonService.generateInviteCode())
-				.income(0)
+				.income(0L)
 				.expenses(0L)
 				.createAt(Timestamp.valueOf(LocalDateTime.now()))
 				.updateAt(Timestamp.valueOf(LocalDateTime.now()))
@@ -178,6 +178,24 @@ public class LedgerServiceImpl implements LedgerService {
 				.expenses(tot)
 				.build();
 		ledgerRepository.save(ledger);
+	}
+
+	@Transactional
+	@Override
+	public void setIncome(Long no, Long income) {
+		System.out.println("!!!!!!!!!!!!!!!!"+no);
+		System.out.println(income+"!!!!!!!!!!!!!");
+		Ledger ledger = ledgerRepository.findById(no).orElseThrow(()->new RuntimeException("err"));
+		Ledger add = ledger.toBuilder()
+				.income(income)
+				.build();
+		ledgerRepository.save(add);
+	}
+
+	@Transactional
+	@Override
+	public void ledgerDeleter(Long no) {
+		ledgerRepository.deleteById(no);
 	}
 
 	public String categoryDistributor(int no) {

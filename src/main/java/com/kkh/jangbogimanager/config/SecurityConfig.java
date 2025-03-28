@@ -35,7 +35,7 @@ public class SecurityConfig {
 				.formLogin(login -> login
 						.loginPage("/login") // 로그인 페이지 지정
 						.loginProcessingUrl("/login")
-						.defaultSuccessUrl("/stats/home", true) // 로그인 성공 후 이동할 페이지
+						.defaultSuccessUrl("/ledger/home", true) // 로그인 성공 후 이동할 페이지
 						.permitAll()
 				)
 				.logout(logout -> logout

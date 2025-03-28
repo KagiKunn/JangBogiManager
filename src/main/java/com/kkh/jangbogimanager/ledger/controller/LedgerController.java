@@ -82,7 +82,14 @@ public class LedgerController {
 	}
 
 	@PostMapping("/income")
-	public String incomeRegister(@RequestBody Map<String, Long> req){
-		return "/ledger/detail"+req.get("no");
+	public String incomeRegister(@RequestParam Long no, @RequestParam Long income){
+		ledgerService.setIncome(no,income);
+		return "redirect:/ledger/detail/"+no;
+	}
+
+	@PostMapping("/deleteledger")
+	public String deleteLedger(@RequestParam Long no){
+		ledgerService.ledgerDeleter(no);
+		return "redirect:/ledger/home";
 	}
 }
